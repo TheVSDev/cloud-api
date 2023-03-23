@@ -27,6 +27,22 @@ const api = ({ app }) => {
     },
   ];
 
+  // GET all
+  app.get("/employees", (req, res) => {
+    res.json(employee);
+  });
+
+
+  // GET a single employee by ID
+  app.get("/employees/:id", (req, res) => {
+    const employeeId = parseInt(req.params.id);
+    const employee = employees.find((employee) => employee.id === employeeId);
+    if (employee) {
+      res.json(employee);
+    } else {
+      res.status(404).json({ message: `Employee with ID ${employeeId} not found.` });
+    }
+  });
 
 
   // Server
