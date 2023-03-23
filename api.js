@@ -69,8 +69,21 @@ const api = ({ app }) => {
   }); 
 
 
+  // DELETE
+  app.delete("/employees/:id", (req, res) => {
+    const employeeId = parseInt(req.params.id);
+    const index = employees.findIndex((employee) => employee.id === employeeId);
+    if (index !== -1) {
+      employees.splice(index, 1);
+      res.status(204).send();
+    } else {
+      res.status(404).json({ message: `Employee with ID ${employeeId} not found.` });
+    }
+  });
 
 
+
+  
   // Server
   app.listen(8080, () => {
   console.log('Server is listening on port 8080.');
