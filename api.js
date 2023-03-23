@@ -55,6 +55,21 @@ const api = ({ app }) => {
   });
 
 
+  // PUT
+  app.put("/employees/:id", (req, res) => {
+    const employeeId = parseInt(req.params.id);
+    const updatedEmployee = req.body;
+    const index = employees.findIndex((employee) => employee.id === employeeId);
+    if (index !== -1) {
+      employees[index] = { id: employeeId, ...updatedEmployee };
+      res.json(employees[index]);
+    } else {
+      res.status(404).json({ message: `Employee with ID ${employeeId} not found.` });
+    }
+  }); 
+
+
+
 
   // Server
   app.listen(8080, () => {
