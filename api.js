@@ -27,6 +27,7 @@ const api = ({ app }) => {
     },
   ];
 
+
   // GET all
   app.get("/employees", (req, res) => {
     res.json(employee);
@@ -43,6 +44,16 @@ const api = ({ app }) => {
       res.status(404).json({ message: `Employee with ID ${employeeId} not found.` });
     }
   });
+
+  
+  // POST  
+  app.post("/employees", (req, res) => {
+    const newEmployee = req.body;
+    newEmployee.id = employees.length + 1; // Automatic ID incrementing by one at each post based on a number of employees
+    employees.push(newEmployee);
+    res.json(newEmployee);
+  });
+
 
 
   // Server
